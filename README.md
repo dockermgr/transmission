@@ -19,17 +19,17 @@ dockermgr update transmission
 ## Install and run container
   
 ```shell
-mkdir -p "$HOME/.local/share/srv/docker/transmission/rootfs"
+mkdir -p "$HOME/.local/share/srv/docker/transmission/volumes"
 git clone "https://github.com/dockermgr/transmission" "$HOME/.local/share/CasjaysDev/dockermgr/transmission"
-cp -Rfva "$HOME/.local/share/CasjaysDev/dockermgr/transmission/rootfs/." "$HOME/.local/share/srv/docker/transmission/rootfs/"
+cp -Rfva "$HOME/.local/share/CasjaysDev/dockermgr/transmission/volumes/." "$HOME/.local/share/srv/docker/transmission/volumes/"
 docker run -d \
 --restart always \
 --privileged \
 --name casjaysdevdocker-transmission \
 --hostname transmission \
 -e TZ=${TIMEZONE:-America/New_York} \
--v $HOME/.local/share/srv/docker/casjaysdevdocker-transmission/rootfs/data:/data:z \
--v $HOME/.local/share/srv/docker/casjaysdevdocker-transmission/rootfs/config:/config:z \
+-v $HOME/.local/share/srv/docker/casjaysdevdocker-transmission/volumes/data:/data:z \
+-v $HOME/.local/share/srv/docker/casjaysdevdocker-transmission/volumes/config:/config:z \
 -p 80:80 \
 casjaysdevdocker/transmission:latest
 ```
@@ -46,8 +46,8 @@ services:
       - TZ=America/New_York
       - HOSTNAME=transmission
     volumes:
-      - $HOME/.local/share/srv/docker/casjaysdevdocker-transmission/rootfs/data:/data:z
-      - $HOME/.local/share/srv/docker/casjaysdevdocker-transmission/rootfs/config:/config:z
+      - $HOME/.local/share/srv/docker/casjaysdevdocker-transmission/volumes/data:/data:z
+      - $HOME/.local/share/srv/docker/casjaysdevdocker-transmission/volumes/config:/config:z
     ports:
       - 80:80
     restart: always
